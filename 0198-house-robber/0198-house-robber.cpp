@@ -1,25 +1,25 @@
 class Solution {
 public:
-    int Rob(int index, vector<int>& nums, vector<int>& dp) {
-        // Base cases
-        if (index == 0)
+    int rob(vector<int>&nums )
+    {    
+        int n =nums.size();
+        if(n==1)
             return nums[0];
-        if (index == 1)
-            return max(nums[0], nums[1]);
-        
-        // If the result is already calculated, return it
-        if (dp[index] != -1)
-            return dp[index];
-        
-        // Calculate the result and store it in dp
-        dp[index] = max(nums[index] + Rob(index - 2, nums, dp), Rob(index - 1, nums, dp));
-        return dp[index];
-    }
+        if(n==2)
+        {
+            return max(nums[0],nums[1]);
+        }
 
-    int rob(vector<int>& nums) {
-        int n = nums.size();
         
-        vector<int> dp(n, -1);
-        return Rob(n - 1, nums, dp);
+        int curr, prev=max(nums[0], nums[1]),prev2=nums[0];
+        
+        for(int i=2;i<n;i++)
+        {
+            curr=max(nums[i]+prev2,prev);
+            prev2=prev;
+            prev=curr;
+        }
+        return curr;
+        
     }
 };
